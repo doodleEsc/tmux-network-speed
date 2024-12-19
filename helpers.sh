@@ -15,12 +15,22 @@ get_speed_output() {
 	local interface="$1"
 
 	if is_osx; then
-		netstat -bn -I $network_interface | grep "<Link#" | awk '{print $7 " " $10}'
+		netstat -bn -I $interface 2>/dev/null | grep "<Link#" | awk '{print $7 " " $10}'
 	else
-		cat /proc/net/dev | grep $network_interface | awk '{print $2 " " $10}'
+		grep -w "$interface" /proc/net/dev 2>/dev/null | awk '{print $2 " " $10}'
 	fi
 }
 
+# get_speed_output() {
+# 	local interface="$1"
+#
+# 	if is_osx; then
+# 		netstat -bn -I $network_interface | grep "<Link#" | awk '{print $7 " " $10}'
+# 	else
+# 		cat /proc/net/dev | grep $network_interface | awk '{print $2 " " $10}'
+# 	fi
+# }
+
 is_osx() {
-    [ $(uname) == "Darwin" ]
+	[ $(uname) == "Darwin" ]
 }
