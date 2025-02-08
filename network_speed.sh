@@ -98,5 +98,8 @@ fi
 download_color=$(get_tmux_option "@network_speed_download_color" "$default_download_color")
 upload_color=$(get_tmux_option "@network_speed_upload_color" "$default_upload_color")
 
+download_icon=$(get_tmux_option '@network_speed_download_icon' "")
+upload_icon=$(get_tmux_option '@network_speed_upload_icon' "")
+
 # Print result
-printf "%s↓ %s %s↑ %s#[fg=default]" "$download_color" "$download_speed" "$upload_color" "$upload_speed"
+printf "%s%s %s %s%s %s#[fg=default]" "$download_color" "$download_icon" "$download_speed" "$upload_icon" "$upload_color" "$upload_speed"
