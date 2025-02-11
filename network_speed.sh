@@ -102,4 +102,4 @@ download_icon=$(get_tmux_option '@network_speed_download_icon' "↓")
 upload_icon=$(get_tmux_option '@network_speed_upload_icon' "↑")
 
 # Print result
-printf "%s%s %s %s%s %s#[fg=default]" "$download_color" "$download_icon" "$download_speed" "$upload_color" "$upload_icon" "$upload_speed"
+printf "%s%s %s - %s%s %s#[fg=default]" "$download_color" "$download_icon" "$download_speed" "$upload_color" "$upload_icon" "$upload_speed"
