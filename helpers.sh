@@ -17,19 +17,15 @@ get_speed_output() {
 	if is_osx; then
 		netstat -bn -I $interface 2>/dev/null | grep "<Link#" | awk '{print $7 " " $10}'
 	else
-		grep -w "$interface" /proc/net/dev 2>/dev/null | awk '{print $2 " " $10}'
+		# Check if interface exists in /proc/net/dev
+		if grep -q -w "$interface" /proc/net/dev 2>/dev/null; then
+			grep -w "$interface" /proc/net/dev | awk '{print $2 " " $10}'
+		else
+			# Return "0 0" for non-existent interfaces
+			echo "0 0"
+		fi
 	fi
 }
-
-# get_speed_output() {
-# 	local interface="$1"
-#
-# 	if is_osx; then
-# 		netstat -bn -I $network_interface | grep "<Link#" | awk '{print $7 " " $10}'
-# 	else
-# 		cat /proc/net/dev | grep $network_interface | awk '{print $2 " " $10}'
-# 	fi
-# }
 
 is_osx() {
 	[ $(uname) == "Darwin" ]
